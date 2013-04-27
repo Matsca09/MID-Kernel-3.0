@@ -614,18 +614,25 @@ static int ft5406_ts_probe(struct i2c_client *client, const struct i2c_device_id
     set_bit(TS_TOUCH_BTN, input_dev->keybit);
 #endif
 
-    set_bit(TS_PRESSURE, input_dev->absbit);
+    set_bit(TS_PRESSURE, input_dev->keybit);
     set_bit(TS_POSITION_X, input_dev->absbit);
     set_bit(TS_POSITION_Y, input_dev->absbit);
-    set_bit(TS_TOUCH_SIZE, input_dev->absbit);
+    set_bit(TS_TOUCH_SIZE, input_dev->keybit);
+    
+    
 
+    //Matsca09: Implementing single touch
+    input_set_abs_params(input_dev, ABS_X, 0, SCREEN_MAX_X, 0, 0);
+    input_set_abs_params(input_dev, ABS_Y, 0, SCREEN_MAX_Y, 0, 0);
     input_set_abs_params(input_dev, TS_POSITION_X, 0, SCREEN_MAX_X, 0, 0);
     input_set_abs_params(input_dev, TS_POSITION_Y, 0, SCREEN_MAX_Y, 0, 0);
     input_set_abs_params(input_dev, TS_PRESSURE, 0, PRESS_MAX, 0, 0);
     input_set_abs_params(input_dev, TS_TOUCH_SIZE, 0, 200, 0, 0);
 
-    set_bit(EV_ABS, input_dev->evbit);
+    //Matsca09: Enabling touchscreen in Xorg (some code taken by touchscreen patch for Nexus S from user winsys of xda (http://forum.xda-developers.com/showthread.php?t=1368945)
     set_bit(EV_KEY, input_dev->evbit);
+    set_bit(EV_ABS, input_dev->evbit);
+    set_bit(BTN_TOUCH, input_dev->keybit);
 
     /*this creates the virtual i2c bus master device 
     there will be an event<x> file in /dev/input/  */
