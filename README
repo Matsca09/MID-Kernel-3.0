@@ -2,6 +2,21 @@ This is the namko's 3.0 kernel with patches for run a Linux distro, such as Ubun
 
 Compiled & tested with the CodeSourcery ARM Toolchain 2008q3
 
+A little how-to to build this:
+	-> Click the 'ZIP' button to download the entire kernel sources, or use git :)
+	-> Unpack it (if you have downloaded the ZIP)
+	-> Open a terminal and cd into the kernel dir.
+	-> Type: ARCH=arm CROSS_COMPILE=<your arm cross compiler (ex. arm-none-linux-gnueabi-)> make midlinux_defconf 
+	-> Type: ARCH=arm CROSS_COMPILE=<your arm cross compiler (ex. arm-none-linux-gnueabi-)> make zImage 
+-> If the build procedure terminates without errors, you can find the compiled zImage into <kernel dir>/arch/arm/boot/
+
+IMPORTANT: If you get this error during compilation:
+
+	cc1: error: unrecognized command line option "-fconserve-stack"
+	make[3]: *** [drivers/gpu/pvr/osfunc.o] Error 1
+
+you have to open with a text editor this file: <kernel dir>/drivers/gpu/pvr/Makefile and remove the "-fconserve-stack\" line. Save and start again the compilation.
+	
 In order to get the Wifi working, you have to download from the Realtek website the 8192CU driver, compile that, ans successively load the .ko files into your distro.
 
 -----------------------------------------------------------------------
