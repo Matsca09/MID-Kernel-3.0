@@ -1,3 +1,10 @@
+This is the namko's 3.0 kernel with patches for run a Linux distro, such as Ubuntu ARM, on a Dropad A8T.
+
+Compiled & tested with the CodeSourcery ARM Toolchain 2008q3
+
+In order to get the Wifi working, you have to download from the Realtek website the 8192CU driver, compile that, ans successively load the .ko files into your distro.
+
+-----------------------------------------------------------------------
 	Linux kernel release 3.x <http://kernel.org/>
 
 These are the release notes for Linux version 3.  Read them carefully,
