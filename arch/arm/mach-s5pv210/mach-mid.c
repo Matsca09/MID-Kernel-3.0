@@ -1179,49 +1179,8 @@ static struct i2c_board_info i2c_ata2538 __initdata = {
 };
 
 static void mid_detect_i2cdevs(void) {
-    int ret;
-
-    if (!strcmp(mid_model, "703")) {
-        // Herotab C8/Dropad A8/Haipad M7
-        printk("* Selecting capacitive touchscreen...\n");
-        if ((ret = i2c_register_board_info(1, &i2c_ft5x0x_ts, 1)) != 0)
-            printk("*** ERROR: cannot register capacitive touchscreen (%d); "
-                   "touch will not work ***\n", ret);
-    }
-    else if (!strcmp(mid_model, "712")) {
-        // Dropad A8T/Haipad M7S
-        printk("* Selecting capacitive touchscreen...\n");
-        if ((ret = i2c_register_board_info(2, &i2c_ft5x0x_ts, 1)) != 0)
-            printk("*** ERROR: cannot register capacitive touchscreen (%d); "
-                   "touch will not work ***\n", ret);
-    }
-    else if (!strcmp(mid_model, "7024") || !strcmp(mid_model, "8024")) {
-        // Coby 7024 and Coby 8024.
-        printk("* Selecting resistive touchscreen...\n");
-        if ((ret = platform_device_register(&s3c_device_ts)) != 0)
-            printk("*** ERROR: cannot register resistive touchscreen (%d); "
-                   "touch will not work ***\n", ret);
-
-        printk("* Selecting touch buttons...\n");
-        if ((ret = i2c_register_board_info(1, &i2c_ata2538, 1)) != 0)
-            printk("*** ERROR: cannot register touch buttons (%d); "
-                   "buttons will not work ***\n", ret);
-    }
-    else if (!strcmp(mid_model, "1024")) {
-        // Coby 1024
-        printk("* Selecting capacitive touchscreen...\n");
-        if ((ret = i2c_register_board_info(1, &i2c_goodix_ts, 1)) != 0)
-            printk("*** ERROR: cannot register capacitive touchscreen (%d); "
-                   "touch will not work ***\n", ret);
-
-        printk("* Selecting touch buttons...\n");
-        if ((ret = i2c_register_board_info(1, &i2c_ata2538, 1)) != 0)
-            printk("*** ERROR: cannot register touch buttons (%d); "
-                   "buttons will not work ***\n", ret);
-    }
-    else {
-        printk("*** WARNING: unknwon model; some devices will may work ***\n");
-    }
+   i2c_register_board_info(2, &i2c_ft5x0x_ts, 1);
+   i2c_register_board_info(1, &i2c_ata2538, 1);
 }
 
 #ifdef CONFIG_S3C_DEV_NAND
